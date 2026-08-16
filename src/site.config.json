@@ -1,0 +1,9 @@
+{
+  "url": "https://blog.ryan-brock.com",
+  "title": "Ryan Brock",
+  "tagline": "Notes on building things",
+  "description": "Notes on Angular, static sites, and whatever else I end up building.",
+  "author": "Ryan Brock",
+  "locale": "en_US",
+  "language": "en"
+}

@@ -1,7 +1,8 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, effect, inject, input } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Post } from '../../models/post';
+import { Seo } from '../../services/seo';
 
 @Component({
   selector: 'app-post',
@@ -21,4 +22,17 @@ export class PostPage {
     const html = this.post()?.html;
     return html ? this.sanitizer.bypassSecurityTrustHtml(html) : null;
   });
+
+  constructor() {
+    const seo = inject(Seo);
+
+    effect(() => {
+      const post = this.post();
+      if (post) {
+        seo.setPost(post);
+      } else {
+        seo.setDefault();
+      }
+    });
+  }
 }
