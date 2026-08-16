@@ -1,5 +1,7 @@
 <h1>Posts</h1>
 
+<app-post-search />
+
 @if (tags.length) {
   <nav class="tag-cloud" aria-label="Tags">
     @for (tag of tags; track tag) {
@@ -8,4 +10,4 @@
   </nav>
 }
 
-<app-post-list [posts]="posts" />
+<app-post-list [posts]="posts()" emptyMessage="No posts match that search." />

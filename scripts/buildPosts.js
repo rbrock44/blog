@@ -17,6 +17,7 @@ const { Marked } = require('marked');
 const { createHighlighter } = require('shiki');
 const { generateFeeds } = require('./generateFeeds');
 const { generateOgImages } = require('./generateOgImages');
+const { generateSearchIndex } = require('./generateSearchIndex');
 
 const REQUIRED_FIELDS = ['slug', 'title', 'date', 'description'];
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -168,6 +169,7 @@ async function buildPosts() {
   );
 
   generateFeeds(published);
+  generateSearchIndex(published);
   await generateOgImages(published);
 
   const skipped = [

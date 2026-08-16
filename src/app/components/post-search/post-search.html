@@ -1,0 +1,22 @@
+<div class="search">
+  <label class="visually-hidden" for="post-search">Search posts</label>
+  <input
+    id="post-search"
+    type="search"
+    placeholder="Search posts"
+    autocomplete="off"
+    [value]="term()"
+    (focus)="prefetch()"
+    (input)="onInput($any($event.target).value)"
+  />
+  @if (term()) {
+    <button type="button" (click)="clear()">Clear</button>
+  }
+</div>
+
+@if (results(); as results) {
+  <p class="search-count" aria-live="polite">
+    {{ results.length }} {{ results.length === 1 ? 'match' : 'matches' }} for
+    &ldquo;{{ term() }}&rdquo;
+  </p>
+}
