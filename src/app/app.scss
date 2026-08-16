@@ -1,13 +1,19 @@
+:host {
+  display: block;
+}
+
 .skip-link {
   position: absolute;
   left: -9999px;
 
   &:focus {
-    left: 1rem;
-    top: 1rem;
+    left: 1.5rem;
+    top: 1.5rem;
     z-index: 10;
-    padding: 0.5rem 0.75rem;
+    padding: 0.5rem 0.9rem;
     background: var(--surface);
+    border: 1px solid var(--accent);
+    border-radius: 3px;
   }
 }
 
@@ -16,14 +22,54 @@
   align-items: baseline;
   justify-content: space-between;
   gap: 1rem;
-  padding: 2rem 0 3rem;
+  padding: 2.5rem 0 4rem;
+  font-family: var(--f-ui);
 }
 
 .site-title {
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--accent);
+  }
+}
+
+.site-header nav {
+  display: flex;
+  gap: 1.25rem;
+  font-size: 0.9rem;
+}
+
+.site-header nav a {
+  color: var(--muted);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--accent);
+  }
 }
 
 .site-footer {
-  margin-top: 5rem;
-  padding: 2rem 0;
+  margin-top: 6rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line);
+  font-family: var(--f-ui);
+  font-size: 0.85rem;
+  color: var(--muted);
+
+  p {
+    margin: 0;
+  }
+
+  a {
+    color: var(--muted);
+
+    &:hover {
+      color: var(--accent);
+    }
+  }
 }

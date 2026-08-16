@@ -1,56 +1,148 @@
+@use '@fontsource-variable/inter/wght.css';
+@use '@fontsource-variable/source-serif-4/opsz.css';
+@use '@fontsource-variable/source-serif-4/opsz-italic.css';
+@use 'styles/prose';
+
+/*
+ * Reading-first. Headings and interface bits are set in Inter; the prose itself is
+ * Source Serif 4, which holds up far better over a long article. Code keeps a system
+ * mono stack so there is no third font download.
+ */
+
 :root {
-  --ground: #fbfbfa;
+  --ground: #fbfaf7;
   --surface: #ffffff;
-  --ink: #1a1a18;
-  --muted: #5f625c;
-  --accent: #17605a;
-  --line: #e2e2dd;
+  --ink: #14181a;
+  --ink-mid: #3d4548;
+  --muted: #6a7276;
+  --line: #e3e0d8;
+  --line-soft: #eeece6;
+  --accent: #0f5f62;
+  --accent-hover: #0a4547;
+  --selection: #cfe6e4;
+  --code-bg: #f4f2ed;
+
+  --f-ui: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --f-prose: 'Source Serif 4 Variable', Georgia, 'Times New Roman', serif;
+  --f-mono: ui-monospace, 'Cascadia Code', 'Cascadia Mono', Consolas, 'SF Mono', Menlo, monospace;
+
+  --measure: 34rem;
+  --page: 46rem;
+
+  color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
-    --ground: #131513;
-    --surface: #1b1e1c;
-    --ink: #e8e9e4;
-    --muted: #9ca29a;
-    --accent: #6cc0b6;
-    --line: #2c302d;
+    --ground: #121415;
+    --surface: #191d1e;
+    --ink: #e6e6e1;
+    --ink-mid: #bdc2c1;
+    --muted: #8b9391;
+    --line: #2b3132;
+    --line-soft: #222829;
+    --accent: #63bdb8;
+    --accent-hover: #8ed3ce;
+    --selection: #1d403f;
+    --code-bg: #1b2021;
+
+    color-scheme: dark;
   }
 }
 
 :root[data-theme='dark'] {
-  --ground: #131513;
-  --surface: #1b1e1c;
-  --ink: #e8e9e4;
-  --muted: #9ca29a;
-  --accent: #6cc0b6;
-  --line: #2c302d;
+  --ground: #121415;
+  --surface: #191d1e;
+  --ink: #e6e6e1;
+  --ink-mid: #bdc2c1;
+  --muted: #8b9391;
+  --line: #2b3132;
+  --line-soft: #222829;
+  --accent: #63bdb8;
+  --accent-hover: #8ed3ce;
+  --selection: #1d403f;
+  --code-bg: #1b2021;
+
+  color-scheme: dark;
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   margin: 0 auto;
-  padding: 0 1.25rem 4rem;
-  max-width: 44rem;
+  padding: 0 1.5rem 6rem;
+  max-width: var(--page);
   background: var(--ground);
   color: var(--ink);
-  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
-  line-height: 1.6;
+  font-family: var(--f-prose);
+  font-size: 1.125rem;
+  line-height: 1.7;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--selection);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--f-ui);
+  font-weight: 650;
+  letter-spacing: -0.021em;
+  line-height: 1.2;
+  text-wrap: balance;
+  color: var(--ink);
+}
+
+h1 {
+  font-size: clamp(1.9rem, 5vw, 2.55rem);
+  margin: 0 0 1.5rem;
 }
 
 a {
   color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  transition: color 0.12s ease;
+}
+
+a:hover {
+  color: var(--accent-hover);
 }
 
 a:focus-visible {
   outline: 2px solid var(--accent);
-  outline-offset: 2px;
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 
-.post-meta,
-.site-footer {
-  color: var(--muted);
+code,
+kbd {
+  font-family: var(--f-mono);
+  font-size: 0.86em;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
