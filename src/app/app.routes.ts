@@ -12,6 +12,10 @@ export const routes: Routes = [
     resolve: { post: postResolver },
   },
   {
+    path: 'tags/:tag',
+    loadComponent: () => import('./pages/tag/tag').then((m) => m.TagPage),
+  },
+  {
     path: '**',
     loadComponent: () => import('./pages/not-found/not-found').then((m) => m.NotFound),
   },

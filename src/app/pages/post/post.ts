@@ -1,12 +1,13 @@
 import { Component, computed, effect, inject, input } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
+import { RouterLink } from '@angular/router';
 import { Post } from '../../models/post';
 import { Seo } from '../../services/seo';
 
 @Component({
   selector: 'app-post',
-  imports: [DatePipe],
+  imports: [DatePipe, RouterLink],
   templateUrl: './post.html',
   styleUrl: './post.scss',
 })

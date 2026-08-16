@@ -1,17 +1,11 @@
 <h1>Posts</h1>
 
-<ul class="post-list">
-  @for (post of posts; track post.slug) {
-    <li class="post-list-item">
-      <a class="post-link" [routerLink]="['/posts', post.slug]">{{ post.title }}</a>
-      <p class="post-meta">
-        <time [attr.datetime]="post.date">{{ post.date | date: 'longDate' }}</time>
-        <span aria-hidden="true">&middot;</span>
-        <span>{{ post.readingTime }} min read</span>
-      </p>
-      <p class="post-description">{{ post.description }}</p>
-    </li>
-  } @empty {
-    <li>Nothing published yet.</li>
-  }
-</ul>
+@if (tags.length) {
+  <nav class="tag-cloud" aria-label="Tags">
+    @for (tag of tags; track tag) {
+      <a [routerLink]="['/tags', tag]">{{ tag }}</a>
+    }
+  </nav>
+}
+
+<app-post-list [posts]="posts" />

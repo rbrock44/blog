@@ -48,4 +48,16 @@ describe('PostStore', () => {
     const tags = store.tags();
     expect(tags).toEqual([...new Set(tags)].sort());
   });
+
+  it('should return only posts carrying a tag', () => {
+    for (const tag of store.tags()) {
+      const tagged = store.byTag(tag);
+      expect(tagged.length).toBeGreaterThan(0);
+      expect(tagged.every((post) => post.tags.includes(tag))).toBe(true);
+    }
+  });
+
+  it('should return nothing for an unused tag', () => {
+    expect(store.byTag('not-a-real-tag')).toEqual([]);
+  });
 });

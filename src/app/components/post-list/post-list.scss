@@ -1,0 +1,41 @@
+.post-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.post-list-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.post-title {
+  margin: 0;
+  font-size: 1.3rem;
+  line-height: 1.3;
+}
+
+.post-meta {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0;
+  font-size: 0.88rem;
+}
+
+.post-description {
+  margin: 0.25rem 0 0;
+}
+
+.post-tags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0.35rem 0 0;
+  padding: 0;
+  font-size: 0.82rem;
+}

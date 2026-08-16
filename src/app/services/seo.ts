@@ -30,6 +30,23 @@ export class Seo {
     });
   }
 
+  /** Head tags for a tag archive. Indexable, but never the canonical home of a post. */
+  setTag(tag: string, count: number): void {
+    this.apply({
+      title: `Posts tagged “${tag}” — ${SITE.title}`,
+      description: `${count} post${count === 1 ? '' : 's'} tagged “${tag}” on ${SITE.title}.`,
+      path: `/tags/${tag}`,
+      type: 'website',
+      image: `${SITE.url}/og/default.png`,
+    });
+    this.setJsonLd({
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: `Posts tagged “${tag}”`,
+      url: `${SITE.url}/tags/${tag}`,
+    });
+  }
+
   /** Head tags for a single post, including the card a shared link unfurls into. */
   setPost(post: PostMeta): void {
     const url = `${SITE.url}/posts/${post.slug}`;

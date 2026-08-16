@@ -17,6 +17,10 @@ export class PostStore {
     return [...new Set(POSTS_INDEX.flatMap((post) => post.tags))].sort();
   }
 
+  byTag(tag: string): PostMeta[] {
+    return POSTS_INDEX.filter((post) => post.tags.includes(tag));
+  }
+
   /** Pulls in the post's body chunk. Resolves to undefined for an unknown slug. */
   async bySlug(slug: string): Promise<Post | undefined> {
     const meta = this.metaBySlug(slug);
