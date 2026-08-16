@@ -9,18 +9,43 @@ describe('PostStore', () => {
     store = TestBed.inject(PostStore);
   });
 
-  it('should return posts newest first', () => {
+  it('should publish at least one post', () => {
+    expect(store.all().length).toBeGreaterThan(0);
+  });
+
+  it('should order posts newest first', () => {
     const dates = store.all().map((post) => post.date);
-    const sorted = [...dates].sort((a, b) => b.localeCompare(a));
-    expect(dates).toEqual(sorted);
+    expect(dates).toEqual([...dates].sort((a, b) => b.localeCompare(a)));
   });
 
-  it('should find a post by slug', () => {
+  it('should give every post the required metadata', () => {
+    for (const post of store.all()) {
+      expect(post.slug).toBeTruthy();
+      expect(post.title).toBeTruthy();
+      expect(post.description).toBeTruthy();
+      expect(post.date).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+      expect(post.readingTime).toBeGreaterThan(0);
+    }
+  });
+
+  it('should find metadata by slug', () => {
     const first = store.all()[0];
-    expect(store.bySlug(first.slug)).toBe(first);
+    expect(store.metaBySlug(first.slug)).toEqual(first);
   });
 
-  it('should return undefined for an unknown slug', () => {
-    expect(store.bySlug('does-not-exist')).toBeUndefined();
+  it('should load a post body by slug', async () => {
+    const first = store.all()[0];
+    const post = await store.bySlug(first.slug);
+    expect(post?.html).toContain('<');
+  });
+
+  it('should resolve undefined for an unknown slug', async () => {
+    expect(store.metaBySlug('does-not-exist')).toBeUndefined();
+    expect(await store.bySlug('does-not-exist')).toBeUndefined();
+  });
+
+  it('should list tags unique and sorted', () => {
+    const tags = store.tags();
+    expect(tags).toEqual([...new Set(tags)].sort());
   });
 });

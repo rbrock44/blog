@@ -3,7 +3,8 @@ export interface PostSeries {
   part: number;
 }
 
-export interface Post {
+/** Everything about a post except its rendered body. Small enough to ship in the main bundle. */
+export interface PostMeta {
   slug: string;
   title: string;
   date: string;
@@ -11,7 +12,11 @@ export interface Post {
   description: string;
   tags: string[];
   readingTime: number;
-  html: string;
   ogImage?: string;
   series?: PostSeries;
+}
+
+/** A post with its rendered HTML, loaded on demand from its own chunk. */
+export interface Post extends PostMeta {
+  html: string;
 }

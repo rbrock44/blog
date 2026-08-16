@@ -3,9 +3,13 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "posts:build": "node scripts/buildPosts.js",
+    "prestart": "npm run posts:build",
     "start": "ng serve",
+    "prebuild": "npm run posts:build",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
+    "pretest": "npm run posts:build",
     "test": "ng test",
     "gh-pages": "gh-pages -d dist/blog/browser",
     "deploy": "ng build --configuration production",
@@ -30,8 +34,11 @@
     "@angular/cli": "^22.1.4",
     "@angular/compiler-cli": "^22.1.0",
     "@types/node": "^20.17.19",
+    "gray-matter": "^4.0.3",
     "jsdom": "^28.0.0",
+    "marked": "^18.0.9",
     "prettier": "^3.8.1",
+    "shiki": "^4.4.3",
     "typescript": "~6.0.2",
     "vitest": "^4.0.8"
   }

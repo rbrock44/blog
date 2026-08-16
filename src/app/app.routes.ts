@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { postResolver } from './pages/post/post.resolver';
 
 export const routes: Routes = [
   {
@@ -8,6 +9,7 @@ export const routes: Routes = [
   {
     path: 'posts/:slug',
     loadComponent: () => import('./pages/post/post').then((m) => m.PostPage),
+    resolve: { post: postResolver },
   },
   {
     path: '**',

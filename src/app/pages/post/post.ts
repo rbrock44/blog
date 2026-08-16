@@ -1,7 +1,7 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
-import { PostStore } from '../../services/post-store';
+import { Post } from '../../models/post';
 
 @Component({
   selector: 'app-post',
@@ -10,12 +10,10 @@ import { PostStore } from '../../services/post-store';
   styleUrl: './post.scss',
 })
 export class PostPage {
-  private readonly store = inject(PostStore);
   private readonly sanitizer = inject(DomSanitizer);
 
-  readonly slug = input.required<string>();
-
-  protected readonly post = computed(() => this.store.bySlug(this.slug()));
+  /** Bound from the route resolver by withComponentInputBinding(). */
+  readonly post = input<Post | undefined>();
 
   // Post HTML is rendered by our own build script from markdown we author, never
   // from user input. If that ever changes, this has to be sanitized properly.
