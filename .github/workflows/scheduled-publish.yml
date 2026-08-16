@@ -1,0 +1,54 @@
+name: Scheduled Publish
+
+# A post with a future date is skipped by scripts/buildPosts.js. This rebuild picks it
+# up on the first run after its date passes — nothing else is needed to publish it.
+#
+# GitHub disables scheduled workflows after ~60 days without a commit. Keep-Repo-Active.ps1
+# in the scripts repo pushes an empty commit at 55 days to stop that happening.
+
+on:
+  schedule:
+    - cron: '0 13 * * *'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v7
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v7
+      with:
+        node-version-file: '.nvmrc'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build posts from markdown
+      run: npm run posts:build
+
+    - name: Run Tests
+      run: npx ng test --watch=false
+
+    - name: Build Project
+      run: npm run deploy
+
+    - name: Add CNAME
+      run: |
+        cp CNAME ./dist/blog/browser/CNAME
+
+    - name: Add SPA fallback
+      run: |
+        cp ./dist/blog/browser/index.csr.html ./dist/blog/browser/404.html
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./dist/blog/browser
