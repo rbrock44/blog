@@ -5,5 +5,12 @@
   "description": "Notes on Angular, static sites, and whatever else I end up building.",
   "author": "Ryan Brock",
   "locale": "en_US",
-  "language": "en"
+  "language": "en",
+  "countersApi": "",
+  "giscus": {
+    "repo": "rbrock44/blog",
+    "repoId": "",
+    "category": "Comments",
+    "categoryId": ""
+  }
 }

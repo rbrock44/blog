@@ -16,6 +16,13 @@
   color: var(--muted);
 }
 
+.post-series {
+  margin: 0.75rem 0 0;
+  font-family: var(--f-ui);
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
 .post-tags {
   list-style: none;
   display: flex;

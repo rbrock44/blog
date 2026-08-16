@@ -1,0 +1,16 @@
+@if (counts(); as counts) {
+  <div class="counters">
+    <button
+      type="button"
+      class="like"
+      [class.liked]="counts.liked"
+      [disabled]="busy()"
+      [attr.aria-pressed]="counts.liked"
+      (click)="toggleLike()"
+    >
+      <span aria-hidden="true">{{ counts.liked ? '★' : '☆' }}</span>
+      {{ counts.likes }} {{ counts.likes === 1 ? 'like' : 'likes' }}
+    </button>
+    <span class="views">{{ counts.views }} {{ counts.views === 1 ? 'view' : 'views' }}</span>
+  </div>
+}

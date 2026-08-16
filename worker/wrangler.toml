@@ -1,0 +1,18 @@
+name = "blog-counters"
+main = "src/index.ts"
+compatibility_date = "2026-08-01"
+
+[vars]
+ALLOWED_ORIGIN = "https://blog.ryan-brock.com"
+
+# Create the namespace first, then paste the id it prints in here:
+#   npx wrangler kv namespace create COUNTERS
+[[kv_namespaces]]
+binding = "COUNTERS"
+id = ""
+
+# Deploy with:
+#   cd worker && npx wrangler deploy
+#
+# Then set countersApi in src/site.config.json to the deployed worker's URL and
+# rebuild the blog. Until that is set the counter component renders nothing.

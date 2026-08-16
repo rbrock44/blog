@@ -2,12 +2,14 @@ import { Component, computed, effect, inject, input } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
+import { Comments } from '../../components/comments/comments';
+import { PostCounters } from '../../components/post-counters/post-counters';
 import { Post } from '../../models/post';
 import { Seo } from '../../services/seo';
 
 @Component({
   selector: 'app-post',
-  imports: [DatePipe, RouterLink],
+  imports: [DatePipe, RouterLink, Comments, PostCounters],
   templateUrl: './post.html',
   styleUrl: './post.scss',
 })

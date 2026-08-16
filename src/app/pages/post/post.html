@@ -6,7 +6,16 @@
         <time [attr.datetime]="post.date">{{ post.date | date: 'longDate' }}</time>
         <span aria-hidden="true">&middot;</span>
         <span>{{ post.readingTime }} min read</span>
+        @if (post.updated) {
+          <span aria-hidden="true">&middot;</span>
+          <span>updated {{ post.updated | date: 'longDate' }}</span>
+        }
       </p>
+      @if (post.series; as series) {
+        <p class="post-series">
+          Part {{ series.part }} of <strong>{{ series.name }}</strong>
+        </p>
+      }
       @if (post.tags.length) {
         <ul class="post-tags">
           @for (tag of post.tags; track tag) {
@@ -17,7 +26,11 @@
     </header>
 
     <div class="post-body" [innerHTML]="body()"></div>
+
+    <app-post-counters [slug]="post.slug" />
+    <app-comments [slug]="post.slug" />
   </article>
 } @else {
-  <p>That post does not exist.</p>
+  <h1>Not found</h1>
+  <p>That post does not exist. <a routerLink="/">Back to the posts</a>.</p>
 }
