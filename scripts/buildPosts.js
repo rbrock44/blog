@@ -25,6 +25,7 @@ const WORDS_PER_MINUTE = 200;
 
 const projectRoot = path.resolve(__dirname, '..');
 const contentDirectory = path.join(projectRoot, 'src', 'content', 'posts');
+const aboutPath = path.join(projectRoot, 'src', 'content', 'about.md');
 const outputDirectory = path.join(projectRoot, 'src', 'app', 'data', 'generated');
 const bodiesDirectory = path.join(outputDirectory, 'bodies');
 
@@ -166,6 +167,21 @@ async function buildPosts() {
     path.join(outputDirectory, 'post-bodies.ts'),
     `${banner}export const POST_BODIES: Record<string, () => Promise<{ default: string }>> = {\n` +
       `${entries}\n};\n`,
+  );
+
+  // The about page goes through the same renderer so it can be written in markdown too.
+  const about = matter(fs.readFileSync(aboutPath, 'utf8'));
+  fs.writeFileSync(
+    path.join(outputDirectory, 'about.ts'),
+    `${banner}export const ABOUT = ${JSON.stringify(
+      {
+        title: about.data.title ?? 'About',
+        description: about.data.description ?? '',
+        html: await marked.parse(about.content),
+      },
+      null,
+      2,
+    )};\n`,
   );
 
   generateFeeds(published);

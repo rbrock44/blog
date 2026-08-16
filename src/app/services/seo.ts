@@ -30,6 +30,29 @@ export class Seo {
     });
   }
 
+  /** Head tags for a standalone page such as /about. */
+  setPage(title: string, description: string, path: string): void {
+    this.apply({
+      title: `${title} — ${SITE.title}`,
+      description,
+      path,
+      type: 'website',
+      image: `${SITE.url}/og/default.png`,
+    });
+    this.setJsonLd({
+      '@context': 'https://schema.org',
+      '@type': 'AboutPage',
+      name: title,
+      description,
+      url: `${SITE.url}${path}`,
+      mainEntity: {
+        '@type': 'Person',
+        name: SITE.author,
+        url: SITE.url,
+      },
+    });
+  }
+
   /** Head tags for a tag archive. Indexable, but never the canonical home of a post. */
   setTag(tag: string, count: number): void {
     this.apply({

@@ -28,6 +28,7 @@ function rfc822(date) {
 function sitemap(posts, tags) {
   const urls = [
     { loc: site.url, lastmod: posts[0]?.updated ?? posts[0]?.date, priority: '1.0' },
+    { loc: `${site.url}/about`, priority: '0.6' },
     ...posts.map((post) => ({
       loc: `${site.url}/posts/${post.slug}`,
       lastmod: post.updated ?? post.date,
