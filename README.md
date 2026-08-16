@@ -1,59 +1,79 @@
 # Blog
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.4.
+> A prerendered Angular blog, written in markdown<br/>
+> [Live - Blog](https://blog.ryan-brock.com/)
 
-## Development server
+---
 
-To start a local development server, run:
+## 📚 Table of Contents
 
-```bash
-ng serve
-```
+- [What's My Purpose?](#-whats-my-purpose)
+- [Writing a Post](#-writing-a-post)
+- [Technologies](#-technologies)
+- [Getting Started (Local Setup)](#-getting-started-local-setup)
+  - [Run Locally](#run-locally)
+  - [Test](#test)
+  - [Build](#build)
+  - [Deploy](#deploy)
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## 🧠 What's My Purpose?
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+To write things down somewhere I own, and have them show up properly when shared or searched for.
 
-```bash
-ng generate component component-name
-```
+Every route is prerendered to real HTML at build time, so crawlers and link-unfurl bots
+get finished markup instead of an empty `<div>`. Readers get a normal SPA after first paint.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## ✍️ Writing a Post
 
-## Building
+Posts live in `src/content/posts/` as markdown with frontmatter. Add a file, push, done.
 
-To build the project run:
+The `slug` is frozen in frontmatter and never derived from the title, so retitling a post
+does not break its URL.
 
-```bash
-ng build
-```
+---
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## 🛠️ Technologies
 
-## Running unit tests
+- `Angular 22` - zoneless, standalone components, `outputMode: 'static'`
+- `GitHub Pages` - static hosting at `blog.ryan-brock.com`
+- `Cloudflare Worker + KV` - view and like counts, the only live service
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+---
 
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+## 🚀 Getting Started (Local Setup)
 
 ```bash
-ng e2e
+npm install
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+### Run Locally
 
-## Additional Resources
+```bash
+npm start
+```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Test
+
+```bash
+npm test
+```
+
+### Build
+
+```bash
+npm run build
+```
+
+Prerendered output lands in `dist/blog/browser`.
+
+### Deploy
+
+Pushing to `master` builds and deploys via GitHub Actions.
+
+> ⚠️ `blog` must be present in the `allowedSubdomains` array in
+> [`scripts/cloudflare-workers/unknown-subdomain-redirect.ts`](https://github.com/rbrock44/scripts)
+> or every request is redirected to `lost.ryan-brock.com`.
