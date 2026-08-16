@@ -1,0 +1,29 @@
+.skip-link {
+  position: absolute;
+  left: -9999px;
+
+  &:focus {
+    left: 1rem;
+    top: 1rem;
+    z-index: 10;
+    padding: 0.5rem 0.75rem;
+    background: var(--surface);
+  }
+}
+
+.site-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 2rem 0 3rem;
+}
+
+.site-title {
+  font-weight: 600;
+}
+
+.site-footer {
+  margin-top: 5rem;
+  padding: 2rem 0;
+}

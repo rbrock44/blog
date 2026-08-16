@@ -1,0 +1,23 @@
+@if (post(); as post) {
+  <article class="post">
+    <header class="post-header">
+      <h1>{{ post.title }}</h1>
+      <p class="post-meta">
+        <time [attr.datetime]="post.date">{{ post.date | date: 'longDate' }}</time>
+        <span aria-hidden="true">&middot;</span>
+        <span>{{ post.readingTime }} min read</span>
+      </p>
+      @if (post.tags.length) {
+        <ul class="post-tags">
+          @for (tag of post.tags; track tag) {
+            <li>{{ tag }}</li>
+          }
+        </ul>
+      }
+    </header>
+
+    <div class="post-body" [innerHTML]="body()"></div>
+  </article>
+} @else {
+  <p>That post does not exist.</p>
+}

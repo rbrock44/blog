@@ -1,1 +1,56 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --ground: #fbfbfa;
+  --surface: #ffffff;
+  --ink: #1a1a18;
+  --muted: #5f625c;
+  --accent: #17605a;
+  --line: #e2e2dd;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --ground: #131513;
+    --surface: #1b1e1c;
+    --ink: #e8e9e4;
+    --muted: #9ca29a;
+    --accent: #6cc0b6;
+    --line: #2c302d;
+  }
+}
+
+:root[data-theme='dark'] {
+  --ground: #131513;
+  --surface: #1b1e1c;
+  --ink: #e8e9e4;
+  --muted: #9ca29a;
+  --accent: #6cc0b6;
+  --line: #2c302d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0 auto;
+  padding: 0 1.25rem 4rem;
+  max-width: 44rem;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  line-height: 1.6;
+}
+
+a {
+  color: var(--accent);
+}
+
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.post-meta,
+.site-footer {
+  color: var(--muted);
+}
