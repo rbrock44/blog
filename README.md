@@ -31,8 +31,49 @@ get finished markup instead of an empty `<div>`. Readers get a normal SPA after 
 
 Posts live in `src/content/posts/` as markdown with frontmatter. Add a file, push, done.
 
-The `slug` is frozen in frontmatter and never derived from the title, so retitling a post
-does not break its URL.
+```yaml
+---
+slug: why-angular-still-wins   # frozen — retitling never breaks the URL
+title: Why Angular Still Wins
+date: 2026-08-16               # a future date publishes itself via the daily cron
+updated: 2026-09-02            # optional
+draft: false                   # true keeps it out of the build
+tags: [angular, ssg]
+description: One sentence, written for a search result.
+ogImage: ./custom-card.png     # optional — otherwise a card is generated
+series:                        # optional
+  name: Static Angular
+  part: 2
+---
+```
+
+`slug`, `title`, `date` and `description` are required — the build fails loudly rather
+than shipping a post with no meta description. Reading time is computed, never authored.
+
+To preview scheduled posts locally:
+
+```bash
+INCLUDE_FUTURE=1 npm run posts:build
+```
+
+---
+
+## ⚙️ One-time Setup
+
+Three things are built but inert until configured:
+
+1. **Cloudflare Worker allowlist** — `blog` has been added to `allowedSubdomains` in the
+   `scripts` repo, but the worker still needs deploying to Cloudflare. Until then every
+   request to `blog.ryan-brock.com` redirects to `lost.ryan-brock.com`.
+2. **Comments** — enable GitHub Discussions on this repo, install the
+   [giscus app](https://github.com/apps/giscus), then paste `repoId` and `categoryId`
+   from [giscus.app](https://giscus.app) into `src/site.config.json`. Renders nothing
+   until both are set.
+3. **Counters** — see [`worker/README.md`](worker/README.md), then set `countersApi` in
+   `src/site.config.json`. Renders nothing until set.
+
+Also register this repo with `Keep-Repo-Active.ps1` from the `scripts` repo so GitHub
+does not disable the scheduled workflow after 60 quiet days.
 
 ---
 
