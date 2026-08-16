@@ -60,20 +60,44 @@ INCLUDE_FUTURE=1 npm run posts:build
 
 ## ⚙️ One-time Setup
 
-Three things are built but inert until configured:
+Both Cloudflare workers live in the [`scripts`](https://github.com/rbrock44/scripts) repo
+under `cloudflare-workers/`, and are deployed from the Cloudflare dashboard.
 
-1. **Cloudflare Worker allowlist** — `blog` has been added to `allowedSubdomains` in the
-   `scripts` repo, but the worker still needs deploying to Cloudflare. Until then every
-   request to `blog.ryan-brock.com` redirects to `lost.ryan-brock.com`.
-2. **Comments** — enable GitHub Discussions on this repo, install the
-   [giscus app](https://github.com/apps/giscus), then paste `repoId` and `categoryId`
-   from [giscus.app](https://giscus.app) into `src/site.config.json`. Renders nothing
-   until both are set.
-3. **Counters** — see [`worker/README.md`](worker/README.md), then set `countersApi` in
-   `src/site.config.json`. Renders nothing until set.
+### 1. Let the subdomain through (required — the site is dark without it)
 
-Also register this repo with `Keep-Repo-Active.ps1` from the `scripts` repo so GitHub
-does not disable the scheduled workflow after 60 quiet days.
+`blog` has been added to `allowedSubdomains` in `unknown-subdomain-redirect.ts`, but that
+worker has to be **redeployed** for it to take effect. Until then every request to
+`blog.ryan-brock.com` is redirected to `lost.ryan-brock.com`, no matter how correct DNS
+and Pages are.
+
+### 2. DNS
+
+A proxied `CNAME` for `blog` pointing at `rbrock44.github.io`, orange cloud on so the
+worker route fires. Then add `blog.ryan-brock.com` as the custom domain in this repo's
+GitHub Pages settings.
+
+### 3. Counters (optional)
+
+Deploy `blog-counters.ts` from the scripts repo, then in Cloudflare:
+
+- Bind a KV namespace as `COUNTERS`
+- Add a worker route of `blog.ryan-brock.com/api/*`
+
+That route is more specific than `*.ryan-brock.com/*`, so it takes precedence and the
+redirect worker never sees `/api/` traffic. Then set `"countersApi": "/api"` in
+`src/site.config.json` and rebuild. Renders nothing until set.
+
+### 4. Comments (optional)
+
+Enable GitHub Discussions on this repo, install the
+[giscus app](https://github.com/apps/giscus), then paste `repoId` and `categoryId` from
+[giscus.app](https://giscus.app) into `src/site.config.json`. Renders nothing until both
+are set.
+
+### 5. Keepalive
+
+Register this repo with `Keep-Repo-Active.ps1` from the scripts repo so GitHub does not
+disable the scheduled workflow after 60 quiet days.
 
 ---
 
@@ -82,6 +106,7 @@ does not disable the scheduled workflow after 60 quiet days.
 - `Angular 22` - zoneless, standalone components, `outputMode: 'static'`
 - `GitHub Pages` - static hosting at `blog.ryan-brock.com`
 - `Cloudflare Worker + KV` - view and like counts, the only live service
+  ([`blog-counters.ts`](https://github.com/rbrock44/scripts) in the scripts repo)
 
 ---
 

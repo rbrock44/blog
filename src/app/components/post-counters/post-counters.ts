@@ -9,9 +9,11 @@ interface Counts {
 }
 
 /**
- * Views and likes from the Cloudflare worker. Every failure path is silent: an
- * outage, a blocked request or an unconfigured countersApi all render nothing,
- * because a counter problem must never look like a broken post.
+ * Views and likes from the blog-counters worker in the scripts repo, which serves
+ * blog.ryan-brock.com/api/* — same origin as the blog, so these are plain fetches.
+ *
+ * Every failure path is silent: an outage, a blocked request or an empty countersApi
+ * all render nothing, because a counter problem must never look like a broken post.
  */
 @Component({
   selector: 'app-post-counters',
@@ -34,13 +36,13 @@ export class PostCounters {
   }
 
   private async registerView(): Promise<void> {
-    const counts = await this.request(`/api/counts/${this.slug()}`, 'GET');
+    const counts = await this.request(`/counts/${this.slug()}`, 'GET');
     if (counts) {
       this.counts.set(counts);
     }
 
     // Fire and forget — the worker decides whether this visit actually counts.
-    const bumped = await this.request(`/api/views/${this.slug()}`, 'POST');
+    const bumped = await this.request(`/views/${this.slug()}`, 'POST');
     if (bumped) {
       this.counts.update((current) => (current ? { ...current, views: bumped.views } : current));
     }
@@ -52,7 +54,7 @@ export class PostCounters {
     }
 
     this.busy.set(true);
-    const result = await this.request(`/api/likes/${this.slug()}`, 'POST');
+    const result = await this.request(`/likes/${this.slug()}`, 'POST');
     this.busy.set(false);
 
     if (result) {
