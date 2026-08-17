@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://blog.ryan-brock.com</loc>
+    <lastmod>2026-08-16</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://blog.ryan-brock.com/about</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://blog.ryan-brock.com/posts/hello-world</loc>
+    <lastmod>2026-08-16</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://blog.ryan-brock.com/categories/tech</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://blog.ryan-brock.com/tags/angular</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://blog.ryan-brock.com/tags/meta</loc>
+    <priority>0.5</priority>
+  </url>
+</urlset>
