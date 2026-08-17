@@ -6,7 +6,7 @@
   "author": "Ryan Brock",
   "locale": "en_US",
   "language": "en",
-  "countersApi": "",
+  "countersApi": "/api",
   "categories": [
     {
       "slug": "tech",
@@ -31,8 +31,8 @@
   ],
   "giscus": {
     "repo": "rbrock44/blog",
-    "repoId": "",
+    "repoId": "R_kgDOT6rcPw",
     "category": "Comments",
-    "categoryId": ""
+    "categoryId": "DIC_kwDOT6rcP84DDjBm"
   }
 }
