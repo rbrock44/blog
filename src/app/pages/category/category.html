@@ -1,0 +1,18 @@
+@if (details(); as details) {
+  <header class="category-header">
+    <h1>{{ details.label }}</h1>
+    <p class="category-description">{{ details.description }}</p>
+    <a class="category-feed" [href]="'/rss/' + details.slug + '.xml'">
+      Subscribe to {{ details.label }}
+    </a>
+  </header>
+
+  <app-post-list
+    [posts]="posts()"
+    [showCategories]="false"
+    emptyMessage="Nothing in this category yet."
+  />
+} @else {
+  <h1>Not found</h1>
+  <p>That category does not exist.</p>
+}

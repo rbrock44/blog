@@ -7,6 +7,7 @@ const entries: SearchEntry[] = [
     title: 'Angular Prerendering',
     date: '2026-02-01',
     description: 'Turning a SPA into static HTML.',
+    categories: ['tech'],
     tags: ['angular', 'ssg'],
     readingTime: 6,
     body: 'Prerendering writes an index.html per route at build time.',
@@ -16,6 +17,7 @@ const entries: SearchEntry[] = [
     title: 'Counting Views',
     date: '2026-01-01',
     description: 'A tiny worker and a KV namespace.',
+    categories: ['tech'],
     tags: ['cloudflare'],
     readingTime: 3,
     body: 'Workers run at the edge with no cold start worth worrying about.',
@@ -59,5 +61,9 @@ describe('Search', () => {
 
   it('should ignore case', () => {
     expect(search.query(entries, 'ANGULAR').length).toBe(1);
+  });
+
+  it('should match on category', () => {
+    expect(search.query(entries, 'tech').length).toBe(2);
   });
 });

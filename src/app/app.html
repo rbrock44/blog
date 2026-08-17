@@ -3,9 +3,15 @@
 <header class="site-header">
   <a class="site-title" routerLink="/">Ryan Brock</a>
   <nav aria-label="Primary">
-    <a routerLink="/">Posts</a>
-    <a routerLink="/about">About</a>
-    <a href="/rss.xml">RSS</a>
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      All
+    </a>
+    @for (category of categories; track category.slug) {
+      <a [routerLink]="['/categories', category.slug]" routerLinkActive="active">
+        {{ category.label }}
+      </a>
+    }
+    <a routerLink="/about" routerLinkActive="active">About</a>
   </nav>
 </header>
 
@@ -16,6 +22,7 @@
 <footer class="site-footer">
   <p>
     Built with Angular, prerendered to static HTML.
+    <a href="/rss.xml">RSS</a> &middot;
     <a href="https://ryan-brock.com">ryan-brock.com</a>
   </p>
 </footer>

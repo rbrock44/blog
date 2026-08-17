@@ -1,0 +1,30 @@
+.category-header {
+  margin-bottom: 3rem;
+  max-width: var(--measure);
+}
+
+.category-header h1 {
+  margin-bottom: 0.75rem;
+}
+
+.category-description {
+  margin: 0;
+  color: var(--ink-mid);
+}
+
+.category-feed {
+  display: inline-block;
+  margin-top: 1rem;
+  font-family: var(--f-ui);
+  font-size: 0.85rem;
+  text-decoration: none;
+
+  &::before {
+    content: '\2192';
+    margin-right: 0.4rem;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

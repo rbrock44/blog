@@ -1,12 +1,34 @@
 {
   "url": "https://blog.ryan-brock.com",
   "title": "Ryan Brock",
-  "tagline": "Notes on building things",
-  "description": "Notes on Angular, static sites, and whatever else I end up building.",
+  "tagline": "Writing about projects and related topics",
+  "description": "Writing about the projects I build and the topics around them — software, woodworking, and whatever else is on the bench.",
   "author": "Ryan Brock",
   "locale": "en_US",
   "language": "en",
   "countersApi": "",
+  "categories": [
+    {
+      "slug": "tech",
+      "label": "Tech",
+      "description": "Software I've built and the decisions behind it — architecture, tradeoffs, and the parts that turned out harder than they looked."
+    },
+    {
+      "slug": "woodworking",
+      "label": "Woodworking",
+      "description": "Projects from the shop — design, joinery, finishing, and the mistakes worth not repeating."
+    },
+    {
+      "slug": "automobile",
+      "label": "Automobile",
+      "description": "Maintenance, repairs, and the occasional project car — what broke, what fixed it, and what it cost."
+    },
+    {
+      "slug": "home-repair",
+      "label": "Home Repair",
+      "description": "Keeping a house standing — repairs, upgrades, and the jobs that looked simple until they weren't."
+    }
+  ],
   "giscus": {
     "repo": "rbrock44/blog",
     "repoId": "",

@@ -1,7 +1,7 @@
 import { DOCUMENT, Injectable, inject } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { SITE } from '../config/site';
-import { PostMeta } from '../models/post';
+import { Category, PostMeta } from '../models/post';
 
 const JSON_LD_ID = 'ld-json';
 
@@ -50,6 +50,26 @@ export class Seo {
         name: SITE.author,
         url: SITE.url,
       },
+    });
+  }
+
+  /** Head tags for a category archive — a real section of the site, so it gets its own description. */
+  setCategory(category: Category, count: number): void {
+    this.apply({
+      title: `${category.label} — ${SITE.title}`,
+      description: category.description,
+      path: `/categories/${category.slug}`,
+      type: 'website',
+      image: `${SITE.url}/og/default.png`,
+    });
+    this.setJsonLd({
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: category.label,
+      description: category.description,
+      url: `${SITE.url}/categories/${category.slug}`,
+      isPartOf: { '@type': 'Blog', name: SITE.title, url: SITE.url },
+      numberOfItems: count,
     });
   }
 

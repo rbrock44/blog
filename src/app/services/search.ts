@@ -5,12 +5,13 @@ export interface SearchEntry {
   title: string;
   date: string;
   description: string;
+  categories: string[];
   tags: string[];
   readingTime: number;
   body: string;
 }
 
-const WEIGHTS = { title: 8, tag: 5, description: 3, body: 1 };
+const WEIGHTS = { title: 8, category: 6, tag: 5, description: 3, body: 1 };
 
 @Injectable({ providedIn: 'root' })
 export class Search {
@@ -56,6 +57,7 @@ export class Search {
     const description = entry.description.toLowerCase();
     const body = entry.body.toLowerCase();
     const tags = entry.tags.map((tag) => tag.toLowerCase());
+    const categories = entry.categories.map((category) => category.toLowerCase());
 
     let total = 0;
 
@@ -64,6 +66,9 @@ export class Search {
 
       if (title.includes(word)) {
         wordScore += WEIGHTS.title;
+      }
+      if (categories.some((category) => category.includes(word))) {
+        wordScore += WEIGHTS.category;
       }
       if (tags.some((tag) => tag.includes(word))) {
         wordScore += WEIGHTS.tag;

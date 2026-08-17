@@ -33,6 +33,7 @@ function generateSearchIndex(posts) {
     title: meta.title,
     date: meta.date,
     description: meta.description,
+    categories: meta.categories,
     tags: meta.tags,
     readingTime: meta.readingTime,
     body: toPlainText(html).slice(0, MAX_BODY_CHARS),

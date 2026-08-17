@@ -3,6 +3,7 @@ slug: hello-world
 title: Hello World
 date: 2026-08-16
 description: Why this blog is a prerendered Angular app on GitHub Pages, and what that buys over a plain SPA.
+categories: [tech]
 tags: [meta, angular]
 ---
 

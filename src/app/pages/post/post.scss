@@ -2,6 +2,28 @@
   margin-bottom: 2.75rem;
 }
 
+/* Category reads as a kicker above the headline — it says which section you're in. */
+.post-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0 0 0.6rem;
+  font-family: var(--f-ui);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.post-categories a {
+  color: var(--accent);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 .post-header h1 {
   margin-bottom: 0.75rem;
 }

@@ -3,6 +3,13 @@ export interface PostSeries {
   part: number;
 }
 
+/** A top-level section of the blog. Closed set, defined in site.config.json. */
+export interface Category {
+  slug: string;
+  label: string;
+  description: string;
+}
+
 /** Everything about a post except its rendered body. Small enough to ship in the main bundle. */
 export interface PostMeta {
   slug: string;
@@ -10,6 +17,8 @@ export interface PostMeta {
   date: string;
   updated?: string;
   description: string;
+  /** At least one, every value a known category slug. Enforced at build time. */
+  categories: string[];
   tags: string[];
   readingTime: number;
   ogImage?: string;

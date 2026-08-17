@@ -60,4 +60,28 @@ describe('PostStore', () => {
   it('should return nothing for an unused tag', () => {
     expect(store.byTag('not-a-real-tag')).toEqual([]);
   });
+
+  it('should give every post at least one known category', () => {
+    const known = store.categories().map((category) => category.slug);
+    for (const post of store.all()) {
+      expect(post.categories.length).toBeGreaterThan(0);
+      expect(post.categories.every((slug) => known.includes(slug))).toBe(true);
+    }
+  });
+
+  it('should only list categories that have posts', () => {
+    for (const category of store.categories()) {
+      expect(store.byCategory(category.slug).length).toBeGreaterThan(0);
+    }
+  });
+
+  it('should resolve a category to its label', () => {
+    const first = store.categories()[0];
+    expect(store.category(first.slug)?.label).toBe(first.label);
+  });
+
+  it('should return nothing for an unknown category', () => {
+    expect(store.category('not-a-real-category')).toBeUndefined();
+    expect(store.byCategory('not-a-real-category')).toEqual([]);
+  });
 });

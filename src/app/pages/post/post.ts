@@ -5,6 +5,7 @@ import { RouterLink } from '@angular/router';
 import { Comments } from '../../components/comments/comments';
 import { PostCounters } from '../../components/post-counters/post-counters';
 import { Post } from '../../models/post';
+import { PostStore } from '../../services/post-store';
 import { Seo } from '../../services/seo';
 
 @Component({
@@ -15,9 +16,16 @@ import { Seo } from '../../services/seo';
 })
 export class PostPage {
   private readonly sanitizer = inject(DomSanitizer);
+  private readonly store = inject(PostStore);
 
   /** Bound from the route resolver by withComponentInputBinding(). */
   readonly post = input<Post | undefined>();
+
+  protected readonly categories = computed(() =>
+    (this.post()?.categories ?? [])
+      .map((slug) => this.store.category(slug))
+      .filter((category) => category !== undefined),
+  );
 
   // Post HTML is rendered by our own build script from markdown we author, never
   // from user input. If that ever changes, this has to be sanitized properly.

@@ -10,6 +10,7 @@ const post: PostMeta = {
   title: 'A Post',
   date: '2026-01-02',
   description: 'What the post is about.',
+  categories: ['tech'],
   tags: ['angular'],
   readingTime: 4,
 };
@@ -66,6 +67,22 @@ describe('Seo', () => {
 
     seo.setPost(post);
     expect(meta.getTag("property='article:modified_time'")).toBeNull();
+  });
+
+  it('should describe a category archive with its own description', () => {
+    const category = {
+      slug: 'woodworking',
+      label: 'Woodworking',
+      description: 'Projects from the shop.',
+    };
+    seo.setCategory(category, 3);
+
+    expect(title.getTitle()).toBe(`Woodworking — ${SITE.title}`);
+    expect(meta.getTag("name='description'")?.content).toBe(category.description);
+
+    const data = JSON.parse(document.head.querySelector('script#ld-json')?.textContent ?? '{}');
+    expect(data['@type']).toBe('CollectionPage');
+    expect(data.numberOfItems).toBe(3);
   });
 
   it('should switch back to site-level tags on the home page', () => {

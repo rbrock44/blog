@@ -38,6 +38,7 @@ title: Why Angular Still Wins
 date: 2026-08-16               # a future date publishes itself via the daily cron
 updated: 2026-09-02            # optional
 draft: false                   # true keeps it out of the build
+categories: [tech]             # required, one or more, from site.config.json
 tags: [angular, ssg]
 description: One sentence, written for a search result.
 ogImage: ./custom-card.png     # optional — otherwise a card is generated
@@ -47,8 +48,24 @@ series:                        # optional
 ---
 ```
 
-`slug`, `title`, `date` and `description` are required — the build fails loudly rather
-than shipping a post with no meta description. Reading time is computed, never authored.
+`slug`, `title`, `date`, `description` and `categories` are required — the build fails
+loudly rather than shipping a post with no meta description. Reading time is computed,
+never authored.
+
+### Categories vs tags
+
+**Categories** are the site's structure — a closed set defined in `src/site.config.json`,
+shown in the header, each with its own archive page and RSS feed. A post needs at least
+one, and a category not in that list fails the build, so a typo can't quietly create a
+ghost section. Currently: Tech, Woodworking, Automobile, Home Repair.
+
+**Tags** are free-form topic labels, as many per post as you like, shown as inline
+metadata. They get archive pages but no navigation.
+
+A category only appears in the nav, the sitemap, and the feed list once at least one post
+uses it — so adding a category to the config does nothing visible until you write in it.
+Add one by appending to the `categories` array with a `slug`, `label` and `description`
+(the description becomes the archive page's meta description, so make it a real sentence).
 
 To preview scheduled posts locally:
 

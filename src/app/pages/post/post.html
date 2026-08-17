@@ -1,6 +1,13 @@
 @if (post(); as post) {
   <article class="post">
     <header class="post-header">
+      @if (categories().length) {
+        <p class="post-categories">
+          @for (category of categories(); track category.slug) {
+            <a [routerLink]="['/categories', category.slug]">{{ category.label }}</a>
+          }
+        </p>
+      }
       <h1>{{ post.title }}</h1>
       <p class="post-meta">
         <time [attr.datetime]="post.date">{{ post.date | date: 'longDate' }}</time>

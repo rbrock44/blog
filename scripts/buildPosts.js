@@ -24,6 +24,10 @@ const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const WORDS_PER_MINUTE = 200;
 
 const projectRoot = path.resolve(__dirname, '..');
+const site = JSON.parse(
+  fs.readFileSync(path.join(projectRoot, 'src', 'site.config.json'), 'utf8'),
+);
+const KNOWN_CATEGORIES = site.categories.map((category) => category.slug);
 const contentDirectory = path.join(projectRoot, 'src', 'content', 'posts');
 const aboutPath = path.join(projectRoot, 'src', 'content', 'about.md');
 const outputDirectory = path.join(projectRoot, 'src', 'app', 'data', 'generated');
@@ -59,6 +63,24 @@ function validate(data, filename) {
 
   if (Number.isNaN(Date.parse(data.date))) {
     fail(`${filename} has an unparseable date: "${data.date}"`);
+  }
+
+  // A closed set, checked here so a typo fails the build instead of quietly
+  // creating a category page nothing else links to.
+  const categories = Array.isArray(data.categories) ? data.categories : [];
+  if (!categories.length) {
+    fail(
+      `${filename} has no categories — pick at least one of: ${KNOWN_CATEGORIES.join(', ')}`,
+    );
+  }
+
+  const unknown = categories.filter((category) => !KNOWN_CATEGORIES.includes(category));
+  if (unknown.length) {
+    fail(
+      `${filename} uses unknown categor${unknown.length === 1 ? 'y' : 'ies'} ` +
+        `${unknown.map((c) => `"${c}"`).join(', ')} — ` +
+        `add to site.config.json or use one of: ${KNOWN_CATEGORIES.join(', ')}`,
+    );
   }
 }
 
@@ -126,6 +148,7 @@ async function buildPosts() {
         date,
         updated: data.updated ? toIsoDate(data.updated) : undefined,
         description: data.description.trim(),
+        categories: KNOWN_CATEGORIES.filter((slug) => data.categories.includes(slug)),
         tags: Array.isArray(data.tags) ? data.tags : [],
         readingTime: readingTimeOf(content),
         ogImage: data.ogImage,

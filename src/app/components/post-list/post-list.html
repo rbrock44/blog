@@ -1,6 +1,13 @@
 <ul class="post-list">
   @for (post of posts(); track post.slug) {
     <li class="post-list-item">
+      @if (showCategories() && post.categories.length) {
+        <p class="post-categories">
+          @for (category of post.categories; track category) {
+            <a [routerLink]="['/categories', category]">{{ label(category) }}</a>
+          }
+        </p>
+      }
       <h2 class="post-title">
         <a [routerLink]="['/posts', post.slug]">{{ post.title }}</a>
       </h2>

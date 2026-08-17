@@ -44,12 +44,21 @@
   font-size: 0.9rem;
 }
 
+.site-header nav {
+  flex-wrap: wrap;
+}
+
 .site-header nav a {
   color: var(--muted);
   text-decoration: none;
 
   &:hover {
     color: var(--accent);
+  }
+
+  &.active {
+    color: var(--ink);
+    font-weight: 600;
   }
 }
 
