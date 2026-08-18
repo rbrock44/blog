@@ -16,8 +16,9 @@ found the format to be a very poor user experience from the audience's perspecti
 
 The lady in charge said it would have to be some free tool, and at the time I was working
 a job that had 10% learning time. The tech stack there used Angular, so I decided to
-practice my skills and make [a website](https://scorekeeping-by-rounds.ryan-brock.com/).
-I completed this project, and adoption turned out harder than I thought.
+practice my skills and make [a website](https://scorekeeping-by-rounds.ryan-brock.com/)
+([source on GitHub](https://github.com/rbrock44/scorekeeping-by-rounds)). I completed this
+project, and adoption turned out harder than I thought.
 
 To fundraise for his scholarship, my aunt and uncle held a disc golf tournament in his
 honor. They did that for several years, then migrated to a local trivia night they host
