@@ -1,22 +1,17 @@
 ---
 title: About
-description: Ryan Brock builds small, useful web applications and writes about how they were put together.
+description: Ryan Brock usually builds things to solve problems that he sees in life
 ---
 
-I build small, useful web applications and then write about how they were put together.
+I usually build things to solve problem that crop up in my life
 
-Most of what I make ends up on a subdomain of `ryan-brock.com` — recipe collections,
-puzzle implementations, scorekeeping tools, a woodworking gallery, a handful of utilities.
-Almost all of it is Angular on the front end, deployed to GitHub Pages, with a Kotlin and
-Spring Boot API behind the pieces that need one.
+Most of what I make ends up on a subdomain of `ryan-brock.com`. There's a family recipe website because my grandma has most of her recipes in a published cookbook and the family has ran out of hard copies. I've implemented several puzzles or games I've puchased. I've created a woodworking projects website to showcase my various woodworking projects and not have to scroll through years of photographs on my phone. My family usually goes to and hosts a trivia event each year and scorekeeping in excel is not a good experience. 
 
-This blog is where the reasoning goes. The finished projects show what got built; the
-posts cover why a particular approach won, what the tradeoffs actually were, and which
-parts turned out to be harder than they looked.
+This blog is for me to express various topics, projects or anything to talk about I've experienced. 
 
 ## Elsewhere
 
-- [Every project I've published](https://directory.ryan-brock.com/)
+- [A Directory of My Websites](https://directory.ryan-brock.com/)
 - [GitHub](https://github.com/rbrock44)
 - [LinkedIn](https://www.linkedin.com/in/ryan-brock-4b8123262/)
 - [RSS feed](/rss.xml)
