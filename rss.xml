@@ -6,38 +6,29 @@
     <description>Writing about the projects I build and the topics around them — software, woodworking, and whatever else is on the bench.</description>
     <language>en</language>
     <atom:link href="https://blog.ryan-brock.com/rss.xml" rel="self" type="application/rss+xml"/>
-    <lastBuildDate>Sun, 16 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 17 Aug 2026 12:00:00 GMT</lastBuildDate>
     <item>
-      <title>Hello World</title>
-      <link>https://blog.ryan-brock.com/posts/hello-world</link>
-      <guid isPermaLink="true">https://blog.ryan-brock.com/posts/hello-world</guid>
-      <pubDate>Sun, 16 Aug 2026 12:00:00 GMT</pubDate>
-      <description>Why this blog is a prerendered Angular app on GitHub Pages, and what that buys over a plain SPA.</description>
+      <title>Why I Built Scorekeeping by Rounds</title>
+      <link>https://blog.ryan-brock.com/posts/scorekeeping-by-rounds</link>
+      <guid isPermaLink="true">https://blog.ryan-brock.com/posts/scorekeeping-by-rounds</guid>
+      <pubDate>Mon, 17 Aug 2026 12:00:00 GMT</pubDate>
+      <description>The origin story of a trivia scorekeeping app — a cousin&apos;s passing, organ donation, a spreadsheet that failed its audience, and 10% learning time at work.</description>
       <category domain="https://blog.ryan-brock.com/categories/tech">tech</category>
-      <category>meta</category>
       <category>angular</category>
-      <content:encoded><![CDATA[<p>Every other thing I&#39;ve built lives at some <code>*.ryan-brock.com</code> subdomain, deployed to GitHub
-Pages out of an Angular repo. This one is no different, with one addition that matters more
-than it sounds: every route here is prerendered to real HTML at build time.</p>
-<h2>The problem with a plain SPA blog</h2>
-<p>A client-rendered single-page app ships an empty <code>&lt;div&gt;</code> and fills it in with JavaScript.
-Google will eventually run that JavaScript. The bots that generate link previews — Slack,
-LinkedIn, Discord, iMessage — will not.</p>
-<p>So on a normal Angular SPA, every post I share produces the same blank preview card. For a
-format whose entire distribution model is <em>someone shares a link</em>, that&#39;s the whole game.</p>
-<h2>What fixes it</h2>
-<p>Angular&#39;s static output mode prerenders each route to its own <code>index.html</code>, then hydrates
-into a normal SPA once loaded:</p>
-<pre class="shiki shiki-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e" tabindex="0"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">{</span></span>
-<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">  "outputMode"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"static"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">,</span></span>
-<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">  "server"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"src/main.server.ts"</span></span>
-<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre><p>Posts are markdown files in this repo. A build script parses the frontmatter, renders the
-body, and splits each post&#39;s HTML into its own lazy chunk so the index stays small:</p>
-<pre class="shiki shiki-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e" tabindex="0"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">const</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> { </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">data</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">content</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> matter</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(raw);</span></span>
-<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> html</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> =</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> await</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> marked.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">parse</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(content);</span></span></code></pre><p>The nice side effect is that prerendered routes produce real file paths on disk, so GitHub
-Pages serves deep links natively — no <code>404.html</code> redirect hack needed for anything that
-actually exists.</p>
-<p>If you&#39;re reading this in view-source with JavaScript disabled, it worked.</p>
+      <category>side-projects</category>
+      <content:encoded><![CDATA[<p>It started because I had a cousin pass away, and so his parents — my aunt and uncle —
+decided to do organ donation. They got involved with Saint Louis Transplant of America,
+and at the yearly trivia game I inquired about how to change them from using Excel. I
+found the format to be a very poor user experience from the audience&#39;s perspective.</p>
+<p>The lady in charge said it would have to be some free tool, and at the time I was working
+a job that had 10% learning time. The tech stack there used Angular, so I decided to
+practice my skills and make <a href="https://scorekeeping-by-rounds.ryan-brock.com/">a website</a>.
+I completed this project, and adoption turned out harder than I thought.</p>
+<p>To fundraise for his scholarship, my aunt and uncle held a disc golf tournament in his
+honor. They did that for several years, then migrated to a local trivia night they host
+every year. My niece has used this as scorekeeper every year, providing a great
+experience. She can edit scores on one monitor and have the scores display on the monitor
+projected to the audience.</p>
 ]]></content:encoded>
     </item>
   </channel>
