@@ -1,113 +1,269 @@
 /*
- * Styles for post bodies. These live globally rather than in post.scss because the
- * markup is injected with [innerHTML] and never receives Angular's scoping attribute.
+ * Styles for post bodies and the about page. These live globally rather than in a
+ * component stylesheet because the markup is injected with [innerHTML] and never
+ * receives Angular's scoping attribute.
+ *
+ * Three tracks, one left edge. Prose sits at --measure; anything that is not prose —
+ * a figure, a code block, a table, a note — steps out to --wide, and a figure marked
+ * .full takes the whole page. Every track shares its left edge, so the width alone
+ * says what kind of thing you are looking at and nothing needs a box drawn round it.
+ *
+ * The flow rules are all direct-child selectors, so a per-element override (0,1,1)
+ * always outranks the default (0,1,0). Do not reintroduce a `> * + *` owl here: it
+ * scores (0,1,1) too, ties with every override, and the winner silently becomes
+ * whichever rule happens to be written last.
  */
 
 .post-body {
-  max-width: var(--measure);
-
-  > * + * {
-    margin-top: 1.35em;
-  }
-
-  h2,
-  h3 {
-    margin-top: 2.75rem;
-    margin-bottom: 0;
-  }
-
-  h2 {
-    font-size: 1.5rem;
-    padding-bottom: 0.4rem;
-    border-bottom: 1px solid var(--line);
-  }
-
-  h3 {
-    font-size: 1.18rem;
-  }
-
-  p {
-    margin: 0;
-  }
-
-  a {
-    text-decoration: underline;
-  }
-
-  ul,
-  ol {
-    margin: 0;
-    padding-left: 1.4em;
-  }
-
-  li + li {
-    margin-top: 0.4em;
-  }
-
-  li::marker {
-    color: var(--muted);
-  }
-
-  blockquote {
-    margin: 0;
-    padding-left: 1.25rem;
-    border-left: 3px solid var(--accent);
-    color: var(--ink-mid);
-    font-style: italic;
-  }
-
-  hr {
-    border: 0;
-    border-top: 1px solid var(--line);
-    margin-top: 2.5rem;
-  }
-
-  img {
-    display: block;
-    border-radius: 3px;
-  }
-
-  figcaption {
-    margin-top: 0.5rem;
-    font-family: var(--f-ui);
-    font-size: 0.85rem;
-    color: var(--muted);
-  }
-
-  :not(pre) > code {
-    padding: 0.1em 0.36em;
-    background: var(--code-bg);
-    border: 1px solid var(--line-soft);
-    border-radius: 3px;
-    word-break: break-word;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: var(--f-ui);
-    font-size: 0.92rem;
-  }
-
-  th,
-  td {
-    padding: 0.5rem 0.75rem;
-    border-bottom: 1px solid var(--line);
-    text-align: left;
-  }
-
-  th {
-    font-weight: 600;
-  }
+  max-width: var(--page);
 }
 
-/* Code blocks are widened past the reading measure — code needs the room. */
-.post-body pre {
-  max-width: min(100%, calc(var(--measure) + 6rem));
-  margin: 1.75em 0;
-  padding: 1rem 1.15rem;
-  border: 1px solid var(--line);
+/* The default: reading measure, one paragraph gap above, nothing below. */
+.post-body > * {
+  max-width: var(--measure);
+  margin-top: var(--flow);
+  margin-bottom: 0;
+}
+
+/* The wide track. Not prose, so it gets the extra room. */
+.post-body > pre,
+.post-body > figure,
+.post-body > table,
+.post-body > img,
+.post-body > .note,
+.post-body > .gallery {
+  max-width: var(--wide);
+}
+
+/* Edge to edge, for a photograph worth the whole page. */
+.post-body > .full {
+  max-width: none;
+}
+
+/* ---- Headings ------------------------------------------------------------ */
+
+/*
+ * Set in the prose face, not the interface face. An h1 labels the page and belongs
+ * with the kicker and the byline; an h2 is structure inside the article and belongs
+ * to the article's own typography.
+ */
+.post-body h2,
+.post-body h3 {
+  font-family: var(--f-prose);
+  letter-spacing: -0.005em;
+  margin-bottom: 0;
+}
+
+.post-body h2 {
+  font-size: 1.65rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+/*
+ * The section mark. It sits above the heading rather than under it, so it reads as
+ * the start of something rather than the underline of a title. Top-level sections
+ * only — an h3 carries no mark, which is how the two ranks tell themselves apart.
+ */
+.post-body h2::before {
+  content: '';
+  display: block;
+  width: 2rem;
+  height: 2px;
+  margin-bottom: 0.55rem;
+  background: var(--accent);
+}
+
+.post-body h3 {
+  font-size: 1.3rem;
+  font-weight: 650;
+  line-height: 1.3;
+}
+
+.post-body > h2 {
+  margin-top: var(--flow-section);
+}
+
+.post-body > h3 {
+  margin-top: var(--flow-sub);
+}
+
+/* ---- Flow ---------------------------------------------------------------- */
+
+/*
+ * The lede, opt-in only. It was automatic on the first paragraph and that was wrong:
+ * an article that opens with a long narrative paragraph got its first eight lines set
+ * larger and dimmer, which reads as washed out rather than as a standfirst. Put the
+ * class on a paragraph that is actually written as a one-sentence summary.
+ */
+.post-body > .lede {
+  font-size: 1.32rem;
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+/*
+ * Paragraph spacing comes from the body flow, so this resets only the nested cases
+ * where a container is already handling it. Never write `.post-body p { margin: 0 }`
+ * here: it scores (0,1,1), outranks the (0,1,0) flow default, and silently flattens
+ * every gap in the article.
+ */
+.post-body blockquote p,
+.post-body figure p,
+.post-body li p,
+.post-body .note p {
+  margin: 0;
+}
+
+.post-body a {
+  text-decoration: underline;
+}
+
+.post-body ul,
+.post-body ol {
+  padding-left: 1.5em;
+}
+
+/*
+ * A short rule marks a list item, the same way a short rule marks a section start.
+ * One vocabulary: a mark in the margin means "a thing begins here", and its colour
+ * says at what rank — accent for a section, muted for an item in a list.
+ */
+.post-body ul {
+  list-style: none;
+}
+
+.post-body ul > li {
+  position: relative;
+}
+
+.post-body ul > li::before {
+  content: '';
+  position: absolute;
+  top: 0.72em;
+  left: -1.5em;
+  width: 0.65em;
+  height: 1px;
+  background: var(--muted);
+}
+
+.post-body li + li {
+  margin-top: 0.7em;
+}
+
+.post-body ol > li::marker {
+  color: var(--muted);
+}
+
+.post-body li ul,
+.post-body li ol {
+  margin: 0.55em 0 0;
+}
+
+.post-body blockquote {
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 1.4rem;
+  border-left: 2px solid var(--line);
+  color: var(--ink-mid);
+  font-style: italic;
+}
+
+.post-body blockquote > * + * {
+  margin-top: 1.1rem;
+}
+
+/* A short mark rather than a full rule — a break in the article, not a page divider. */
+.post-body hr {
+  width: 4rem;
+  height: 1px;
+  margin-left: 0;
+  border: 0;
+  background: var(--muted);
+}
+
+/* ---- Pictures ------------------------------------------------------------ */
+
+.post-body figure {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.post-body img,
+.post-body video {
+  display: block;
+  width: 100%;
+  height: auto;
   border-radius: 4px;
+}
+
+/* The caption stays on the reading measure even when the picture runs past it. */
+.post-body figcaption {
+  max-width: var(--measure);
+  margin-top: 0.75rem;
+  font-family: var(--f-ui);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.post-body .gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: 0.85rem;
+}
+
+.post-body .gallery figure {
+  margin: 0;
+}
+
+/* ---- Notes --------------------------------------------------------------- */
+
+/*
+ * An aside, labelled by what it is. Two hairlines and a label, no tint and no box, and
+ * it keeps the same left edge as the prose — the label sits above the text rather than
+ * beside it, because there is no gutter to the left of the measure to hang it in.
+ */
+.post-body .note {
+  padding: 1.4rem 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-mid);
+}
+
+.post-body .note::before {
+  content: attr(data-label);
+  display: block;
+  margin-bottom: 0.7rem;
+  font-family: var(--f-ui);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.post-body .note > * {
+  margin: 0;
+}
+
+.post-body .note > * + * {
+  margin-top: 1.1rem;
+}
+
+/* ---- Code and tables ----------------------------------------------------- */
+
+.post-body :not(pre) > code {
+  padding: 0.1em 0.32em;
+  background: var(--code-bg);
+  border-radius: 3px;
+  overflow-wrap: break-word;
+}
+
+.post-body pre {
+  padding: 1.05rem 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 5px;
   overflow-x: auto;
   font-size: 0.85rem;
   line-height: 1.65;
@@ -116,6 +272,52 @@
 
 .post-body pre code {
   font-family: var(--f-mono);
+}
+
+.post-body table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--f-ui);
+  font-size: 0.92rem;
+}
+
+.post-body th,
+.post-body td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+
+.post-body th {
+  font-weight: 600;
+}
+
+/* ---- Spacing overrides --------------------------------------------------- */
+
+/*
+ * Written last on purpose. Every selector below scores (0,1,1), the same as the
+ * per-element rules above, so source order is what decides them.
+ */
+
+/* A heading binds to the text under it: a lot of room above, very little below. */
+.post-body > h2 + *,
+.post-body > h3 + * {
+  margin-top: 0.85rem;
+}
+
+/* A break is only a break if it has air on both sides. */
+.post-body > hr,
+.post-body > hr + * {
+  margin-top: 3.5rem;
+}
+
+.post-body > pre,
+.post-body > pre + * {
+  margin-top: 2.2rem;
+}
+
+.post-body > :first-child {
+  margin-top: 0;
 }
 
 /*

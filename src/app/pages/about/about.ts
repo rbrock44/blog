@@ -9,6 +9,17 @@ import { Seo } from '../../services/seo';
     <h1>{{ title }}</h1>
     <div class="post-body" [innerHTML]="body"></div>
   `,
+  // Matches the rule under a post header: the title is chrome, what follows is the
+  // article. The global h1 margin is tuned for the home page, where a search box
+  // follows it and no rule is wanted.
+  styles: `
+    h1 {
+      max-width: var(--wide);
+      margin-bottom: 3.25rem;
+      padding-bottom: 1.75rem;
+      border-bottom: 1px solid var(--line);
+    }
+  `,
 })
 export class About {
   protected readonly title = ABOUT.title;

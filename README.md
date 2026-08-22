@@ -69,6 +69,60 @@ A `<style>` block in a post is global once that post is open, so scope it with a
 your own rather than styling bare tags. Shared body styles belong in
 [`src/styles/_prose.scss`](src/styles/_prose.scss) instead.
 
+### Layout: three tracks
+
+A body has three widths, and all three share the same left edge, so how wide a thing is
+tells you what kind of thing it is without a box being drawn round it.
+
+| Track | Width | What sits there |
+| --- | --- | --- |
+| Prose | `--measure`, 34rem | paragraphs, lists, headings, blockquotes |
+| Wide | `--wide`, 40rem | `<figure>`, `<pre>`, `<table>`, `.gallery`, `.note` |
+| Full | `--page`, 46rem | any element with `class="full"` |
+
+Only direct children of the body get a track. Wrap anything that needs one at the top
+level rather than nesting it.
+
+### Pictures
+
+A bare `<img>` runs to the wide track. Wrap it in a `<figure>` to caption it — the
+caption pulls back to the reading measure even though the picture is wider, so it stays
+easy to read:
+
+```html
+<figure>
+  <img src="/img/jig.jpg" alt="A crosscut sled on the table saw" />
+  <figcaption>The sled, before the fence was squared.</figcaption>
+</figure>
+```
+
+Add `class="full"` to take the whole page width. Use `.gallery` for a set — it fits as
+many columns as the width allows and drops to one on a phone:
+
+```html
+<div class="gallery">
+  <figure><img src="/img/one.jpg" alt="…" /></figure>
+  <figure><img src="/img/two.jpg" alt="…" /></figure>
+</div>
+```
+
+### Notes
+
+An aside that is not part of the argument. It is labelled by whatever you put in
+`data-label`, and sits between two hairlines with no tint and no box:
+
+```html
+<aside class="note" data-label="Note">
+  <p>The scores still export to CSV, in case the projector dies.</p>
+</aside>
+```
+
+### Opening paragraph
+
+`class="lede"` sets a paragraph as a standfirst. Use it on a paragraph actually written
+as a one-sentence summary — putting it on a long opening paragraph makes the first eight
+lines of the article look washed out rather than important.
+
 ### Code blocks
 
 `<pre><code>` is handed to [shiki](https://shiki.style) at build time and comes out with

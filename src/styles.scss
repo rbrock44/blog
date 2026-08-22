@@ -20,14 +20,28 @@
   --accent: #0f5f62;
   --accent-hover: #0a4547;
   --selection: #cfe6e4;
-  --code-bg: #f4f2ed;
+  --code-bg: #eeeade;
 
   --f-ui: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --f-prose: 'Source Serif 4 Variable', Georgia, 'Times New Roman', serif;
   --f-mono: ui-monospace, 'Cascadia Code', 'Cascadia Mono', Consolas, 'SF Mono', Menlo, monospace;
 
-  --measure: 34rem;
-  --page: 46rem;
+  /*
+   * Three reading tracks, all sharing a left edge. Prose sits at --measure; anything
+   * that is not prose steps out to --wide; a figure can take the whole --page. The
+   * width difference is what separates them, which is why nothing needs a box.
+   */
+  --measure: 35rem;
+  --wide: 41rem;
+  --page: 44rem;
+
+  /*
+   * Flow rhythm. --flow has to beat the body's leading (1.1875rem x 1.65 = 1.96rem) or
+   * paragraphs read as one block; 2.5rem puts the gap at ~1.28x the line spacing.
+   */
+  --flow: 2.5rem;
+  --flow-section: 4.75rem;
+  --flow-sub: 3rem;
 
   color-scheme: light;
 }
@@ -44,7 +58,7 @@
     --accent: #63bdb8;
     --accent-hover: #8ed3ce;
     --selection: #1d403f;
-    --code-bg: #1b2021;
+    --code-bg: #232b2c;
 
     color-scheme: dark;
   }
@@ -61,7 +75,7 @@
   --accent: #63bdb8;
   --accent-hover: #8ed3ce;
   --selection: #1d403f;
-  --code-bg: #1b2021;
+  --code-bg: #232b2c;
 
   color-scheme: dark;
 }
@@ -83,8 +97,8 @@ body {
   background: var(--ground);
   color: var(--ink);
   font-family: var(--f-prose);
-  font-size: 1.125rem;
-  line-height: 1.7;
+  font-size: 1.1875rem;
+  line-height: 1.65;
   font-optical-sizing: auto;
   -webkit-font-smoothing: antialiased;
 }

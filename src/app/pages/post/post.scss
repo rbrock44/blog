@@ -1,5 +1,14 @@
+/*
+ * The header holds chrome — what section this is, when it ran, how long it takes.
+ * The rule under it is where that stops and the article starts. It sits on the wide
+ * track rather than the full page so the headline does not sprawl six rems past every
+ * other thing on the page.
+ */
 .post-header {
-  margin-bottom: 2.75rem;
+  max-width: var(--wide);
+  margin-bottom: 3.25rem;
+  padding-bottom: 1.75rem;
+  border-bottom: 1px solid var(--line);
 }
 
 /* Category reads as a kicker above the headline — it says which section you're in. */
