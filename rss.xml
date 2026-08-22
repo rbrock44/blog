@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Ryan Brock</title>
+    <title>Blog of Ryan Brock</title>
     <link>https://blog.ryan-brock.com</link>
     <description>Writing about the projects I build and the topics around them — software, woodworking, and whatever else is on the bench.</description>
     <language>en</language>

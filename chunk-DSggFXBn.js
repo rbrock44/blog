@@ -1,4 +1,4 @@
-import{E as Xu,F as fC,I as g,J as um,P as em,a as AT,c as FE,d as I_,f as Ju,j as _I,y as Qg}from"./main-2JWHQPAN.js";import{t as g$1}from"./chunk-CY_JovSR.js";var e={title:`About`,description:`Ryan Brock usually builds things to solve problems that he sees in life`,html:`
+import{E as Xu,F as fC,I as g,J as um,P as em,a as AT,c as FE,d as I_,f as Ju,j as _I,y as Qg}from"./main-WUFXMFNM.js";import{t as c}from"./chunk-ChlHO3dx.js";var e={title:`About`,description:`Ryan Brock usually builds things to solve problems that he sees in life`,html:`
 <p>I usually build things to solve problem that crop up in my life</p>
 
 <p>
@@ -23,4 +23,4 @@ import{E as Xu,F as fC,I as g,J as um,P as em,a as AT,c as FE,d as I_,f as Ju,j 
   <li><a href="https://www.linkedin.com/in/ryan-brock-4b8123262/">LinkedIn</a></li>
   <li><a href="/rss.xml">RSS feed</a></li>
 </ul>
-`};var y=class i{title=e.title;body=g(I_).bypassSecurityTrustHtml(e.html);constructor(){g(g$1).setPage(e.title,e.description,`/about`)}static ɵfac=function(o){return new(o||i)};static ɵcmp=fC({type:i,selectors:[[`app-about`]],decls:3,vars:2,consts:[[1,`post-body`,3,`innerHTML`]],template:function(o,a){o&1&&(Xu(0,`h1`),AT(1),Ju(),Qg(2,`div`,0)),o&2&&(_I(),um(a.title),_I(),em(`innerHTML`,a.body,FE))},encapsulation:2})};export{y as About};
+`};var y=class i{title=e.title;body=g(I_).bypassSecurityTrustHtml(e.html);constructor(){g(c).setPage(e.title,e.description,`/about`)}static ɵfac=function(o){return new(o||i)};static ɵcmp=fC({type:i,selectors:[[`app-about`]],decls:3,vars:2,consts:[[1,`post-body`,3,`innerHTML`]],template:function(o,a){o&1&&(Xu(0,`h1`),AT(1),Ju(),Qg(2,`div`,0)),o&2&&(_I(),um(a.title),_I(),em(`innerHTML`,a.body,FE))},encapsulation:2})};export{y as About};
