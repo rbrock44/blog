@@ -14,7 +14,8 @@ export class Seo {
   /** Head tags for the home page and anything else that is not a single post. */
   setDefault(path = '/'): void {
     this.apply({
-      title: `${SITE.title} — ${SITE.tagline}`,
+      // The home page is the one title that stands alone — every other page suffixes it.
+      title: SITE.title,
       description: SITE.description,
       path,
       type: 'website',

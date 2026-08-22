@@ -19,6 +19,6 @@ describe('App', () => {
     const fixture = TestBed.createComponent(App);
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.site-title')?.textContent).toContain('Ryan Brock');
+    expect(compiled.querySelector('.site-title')?.textContent).toContain('Blog');
   });
 });

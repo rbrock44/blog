@@ -1,6 +1,6 @@
 {
   "url": "https://blog.ryan-brock.com",
-  "title": "Ryan Brock",
+  "title": "Blog of Ryan Brock",
   "tagline": "Writing about projects and related topics",
   "description": "Writing about the projects I build and the topics around them — software, woodworking, and whatever else is on the bench.",
   "author": "Ryan Brock",
@@ -11,7 +11,7 @@
     {
       "slug": "tech",
       "label": "Tech",
-      "description": "Software I've built and the decisions behind it — architecture, tradeoffs, and the parts that turned out harder than they looked."
+      "description": "Software topics I've taken time to write about."
     },
     {
       "slug": "woodworking",
