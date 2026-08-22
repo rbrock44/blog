@@ -15,6 +15,7 @@
   - [Test](#test)
   - [Build](#build)
   - [Deploy](#deploy)
+- [How to Contribute](#-how-to-contribute)
 
 ---
 
@@ -160,3 +161,10 @@ Pushing to `master` builds and deploys via GitHub Actions.
 > ⚠️ `blog` must be present in the `allowedSubdomains` array in
 > [`scripts/cloudflare-workers/unknown-subdomain-redirect.ts`](https://github.com/rbrock44/scripts)
 > or every request is redirected to `lost.ryan-brock.com`.
+
+---
+
+## 🤝 How to Contribute
+
+Found a typo or a small, obvious fix? Open a PR directly.
+Want to change behavior or add something bigger? Open an issue first so we can talk it through before you put in the work.
