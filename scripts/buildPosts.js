@@ -1,5 +1,5 @@
 /**
- * Turns src/content/posts/*.md into generated TypeScript the app imports.
+ * Turns src/content/posts/*.html into generated TypeScript the app imports.
  *
  * Emits:
  *   src/app/data/generated/posts-index.ts   metadata for every published post
@@ -13,11 +13,11 @@
 const fs = require('fs');
 const path = require('path');
 const matter = require('gray-matter');
-const { Marked } = require('marked');
 const { createHighlighter } = require('shiki');
 const { generateFeeds } = require('./generateFeeds');
 const { generateOgImages } = require('./generateOgImages');
 const { generateSearchIndex } = require('./generateSearchIndex');
+const { renderPostHtml, toPlainText } = require('./postHtml');
 
 const REQUIRED_FIELDS = ['slug', 'title', 'date', 'description'];
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -29,7 +29,7 @@ const site = JSON.parse(
 );
 const KNOWN_CATEGORIES = site.categories.map((category) => category.slug);
 const contentDirectory = path.join(projectRoot, 'src', 'content', 'posts');
-const aboutPath = path.join(projectRoot, 'src', 'content', 'about.md');
+const aboutPath = path.join(projectRoot, 'src', 'content', 'about.html');
 const outputDirectory = path.join(projectRoot, 'src', 'app', 'data', 'generated');
 const bodiesDirectory = path.join(outputDirectory, 'bodies');
 
@@ -47,7 +47,7 @@ function readPostFiles() {
 
   return fs
     .readdirSync(contentDirectory)
-    .filter((name) => name.endsWith('.md'))
+    .filter((name) => name.endsWith('.html'))
     .sort();
 }
 
@@ -84,8 +84,9 @@ function validate(data, filename) {
   }
 }
 
-function readingTimeOf(markdown) {
-  const words = markdown.trim().split(/\s+/).filter(Boolean).length;
+/** @param html rendered body — counted as text, so tags and code blocks do not inflate it. */
+function readingTimeOf(html) {
+  const words = toPlainText(html).split(/\s+/).filter(Boolean).length;
   return Math.max(1, Math.round(words / WORDS_PER_MINUTE));
 }
 
@@ -97,20 +98,6 @@ async function buildPosts() {
   const highlighter = await createHighlighter({
     themes: ['github-light', 'github-dark'],
     langs: ['typescript', 'javascript', 'html', 'scss', 'css', 'json', 'bash', 'yaml', 'kotlin', 'sql'],
-  });
-
-  const marked = new Marked({
-    gfm: true,
-    renderer: {
-      code({ text, lang }) {
-        const language = highlighter.getLoadedLanguages().includes(lang) ? lang : 'text';
-        return highlighter.codeToHtml(text, {
-          lang: language,
-          themes: { light: 'github-light', dark: 'github-dark' },
-          defaultColor: false,
-        });
-      },
-    },
   });
 
   const today = toIsoDate(Date.now());
@@ -141,6 +128,8 @@ async function buildPosts() {
       continue;
     }
 
+    const html = renderPostHtml(content, highlighter, filename);
+
     published.push({
       meta: {
         slug: data.slug,
@@ -150,11 +139,11 @@ async function buildPosts() {
         description: data.description.trim(),
         categories: KNOWN_CATEGORIES.filter((slug) => data.categories.includes(slug)),
         tags: Array.isArray(data.tags) ? data.tags : [],
-        readingTime: readingTimeOf(content),
+        readingTime: readingTimeOf(html),
         ogImage: data.ogImage,
         series: data.series,
       },
-      html: await marked.parse(content),
+      html,
     });
   }
 
@@ -192,7 +181,7 @@ async function buildPosts() {
       `${entries}\n};\n`,
   );
 
-  // The about page goes through the same renderer so it can be written in markdown too.
+  // The about page goes through the same renderer, so it is authored the same way.
   const about = matter(fs.readFileSync(aboutPath, 'utf8'));
   fs.writeFileSync(
     path.join(outputDirectory, 'about.ts'),
@@ -200,7 +189,7 @@ async function buildPosts() {
       {
         title: about.data.title ?? 'About',
         description: about.data.description ?? '',
-        html: await marked.parse(about.content),
+        html: renderPostHtml(about.content, highlighter, 'about.html'),
       },
       null,
       2,

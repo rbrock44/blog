@@ -5,24 +5,12 @@
 
 const fs = require('fs');
 const path = require('path');
+const { toPlainText } = require('./postHtml');
 
 const MAX_BODY_CHARS = 2000;
 
 const projectRoot = path.resolve(__dirname, '..');
 const publicDirectory = path.join(projectRoot, 'public');
-
-function toPlainText(html) {
-  return html
-    .replace(/<pre[\s\S]*?<\/pre>/g, ' ')
-    .replace(/<[^>]+>/g, ' ')
-    .replace(/&#39;/g, "'")
-    .replace(/&quot;/g, '"')
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
 
 /** @param posts [{ meta, html }] published posts, newest first. */
 function generateSearchIndex(posts) {

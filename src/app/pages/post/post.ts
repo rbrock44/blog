@@ -27,7 +27,7 @@ export class PostPage {
       .filter((category) => category !== undefined),
   );
 
-  // Post HTML is rendered by our own build script from markdown we author, never
+  // Post HTML is authored by us and passed through our own build script, never
   // from user input. If that ever changes, this has to be sanitized properly.
   protected readonly body = computed(() => {
     const html = this.post()?.html;

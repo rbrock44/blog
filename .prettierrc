@@ -7,6 +7,12 @@
       "options": {
         "parser": "angular"
       }
+    },
+    {
+      "files": "src/content/**/*.html",
+      "options": {
+        "parser": "html"
+      }
     }
   ]
 }

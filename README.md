@@ -1,6 +1,6 @@
 # Blog
 
-> A prerendered Angular blog, written in markdown<br/>
+> A prerendered Angular blog, written in HTML<br/>
 > [Live - Blog](https://blog.ryan-brock.com/)
 
 ---
@@ -30,7 +30,7 @@ get finished markup instead of an empty `<div>`. Readers get a normal SPA after 
 
 ## ✍️ Writing a Post
 
-Posts live in `src/content/posts/` as markdown with frontmatter. Add a file, push, done.
+Posts live in `src/content/posts/` as HTML with YAML frontmatter. Add a file, push, done.
 
 ```yaml
 ---
@@ -50,8 +50,42 @@ series:                        # optional
 ```
 
 `slug`, `title`, `date`, `description` and `categories` are required — the build fails
-loudly rather than shipping a post with no meta description. Reading time is computed,
-never authored.
+loudly rather than shipping a post with no meta description. Reading time is computed
+from the text of the rendered body, never authored.
+
+### The body
+
+Everything after the closing `---` is a plain HTML fragment, passed through to the page
+as written. Classes, `<figure>`, a grid, an inline `<style>` block — if it works in a
+browser it works in a post, which is the reason posts are HTML and not markdown.
+
+Three things fail the build, because all three would otherwise fail silently:
+
+- `<html>`, `<head>` or `<body>` — a post is a fragment inside a page that already exists
+- `<script>` — bodies are injected with `innerHTML`, where scripts never execute
+- `<h1>` — the page already renders the title as its one `h1`, so sections start at `h2`
+
+A `<style>` block in a post is global once that post is open, so scope it with a class of
+your own rather than styling bare tags. Shared body styles belong in
+[`src/styles/_prose.scss`](src/styles/_prose.scss) instead.
+
+### Code blocks
+
+`<pre><code>` is handed to [shiki](https://shiki.style) at build time and comes out with
+both a light and a dark theme baked in. Name the language with a `language-` class:
+
+```html
+<pre><code class="language-typescript">
+  const greet = (name: string) =&gt; `hi ${name}`;
+</code></pre>
+```
+
+Indentation shared by every line is stripped, so a block can line up with the markup
+around it. `<` and `&` still have to be written as `&lt;` and `&amp;` — it is HTML.
+
+A language the highlighter was not built with fails the build; add it to the `langs`
+array in [`scripts/buildPosts.js`](scripts/buildPosts.js). Omit the class (or use
+`language-text`) for a block with no highlighting.
 
 ### Categories vs tags
 

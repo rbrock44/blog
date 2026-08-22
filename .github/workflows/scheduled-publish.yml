@@ -30,7 +30,7 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
-    - name: Build posts from markdown
+    - name: Build posts
       run: npm run posts:build
 
     - name: Run Tests
