@@ -1,22 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
-  <channel>
-    <title>Ryan Brock — Tech</title>
-    <link>https://blog.ryan-brock.com/categories/tech</link>
-    <description>Software I&apos;ve built and the decisions behind it — architecture, tradeoffs, and the parts that turned out harder than they looked.</description>
-    <language>en</language>
-    <atom:link href="https://blog.ryan-brock.com/rss/tech.xml" rel="self" type="application/rss+xml"/>
-    <lastBuildDate>Mon, 17 Aug 2026 12:00:00 GMT</lastBuildDate>
-    <item>
-      <title>Why I Built Scorekeeping by Rounds</title>
-      <link>https://blog.ryan-brock.com/posts/scorekeeping-by-rounds</link>
-      <guid isPermaLink="true">https://blog.ryan-brock.com/posts/scorekeeping-by-rounds</guid>
-      <pubDate>Mon, 17 Aug 2026 12:00:00 GMT</pubDate>
-      <description>The origin story of a trivia scorekeeping app, scorekeeping-by-rounds.</description>
-      <category domain="https://blog.ryan-brock.com/categories/tech">tech</category>
-      <category>angular</category>
-      <category>side-projects</category>
-      <content:encoded><![CDATA[
+var e=`
 <p>
   It started because I had a cousin pass away in 2014, and so his parents, my aunt and uncle, decided to do
   organ donation, saving many lives in the process. They got involved with Saint Louis
@@ -41,7 +23,4 @@
   as scorekeeper has used this scoring system every year, providing a great experience. She can edit scores on one
   monitor and have the scores display on the monitor projected to the audience.
 </p>
-]]></content:encoded>
-    </item>
-  </channel>
-</rss>
+`;export{e as default};
