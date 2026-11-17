@@ -1,4 +1,4 @@
-import{E as Xu,F as fC,I as g,J as um,P as em,a as AT,c as FE,d as I_,f as Ju,j as _I,y as Qg}from"./main-VBTYSYBL.js";import{t as c}from"./chunk-CoInHZXW.js";var e={title:`About`,description:`Ryan Brock usually builds things to solve problems that he sees in life`,html:`
+import{E as Xu,F as fC,I as g,J as um,P as em,a as AT,c as FE,d as I_,f as Ju,j as _I,y as Qg}from"./main-4FN77BC4.js";import{t as c}from"./chunk-WKRLyn5w.js";var e={title:`About`,description:`Ryan Brock usually builds things to solve problems that he sees in life`,html:`
 <p>I usually build things to solve problem that crop up in my life</p>
 
 <p>

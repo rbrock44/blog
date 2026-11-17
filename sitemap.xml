@@ -6,24 +6,24 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://blog.ryan-brock.com/about</loc>
+    <loc>https://blog.ryan-brock.com/about/</loc>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://blog.ryan-brock.com/posts/scorekeeping-by-rounds</loc>
+    <loc>https://blog.ryan-brock.com/posts/scorekeeping-by-rounds/</loc>
     <lastmod>2026-08-17</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://blog.ryan-brock.com/categories/tech</loc>
+    <loc>https://blog.ryan-brock.com/categories/tech/</loc>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://blog.ryan-brock.com/tags/angular</loc>
+    <loc>https://blog.ryan-brock.com/tags/angular/</loc>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://blog.ryan-brock.com/tags/side-projects</loc>
+    <loc>https://blog.ryan-brock.com/tags/side-projects/</loc>
     <priority>0.5</priority>
   </url>
 </urlset>
