@@ -38,7 +38,7 @@ describe('Seo', () => {
   it('should give a post an absolute canonical url', () => {
     seo.setPost(post);
     const href = document.head.querySelector("link[rel='canonical']")?.getAttribute('href');
-    expect(href).toBe(`${SITE.url}/posts/a-post`);
+    expect(href).toBe(`${SITE.url}/posts/a-post/`);
   });
 
   it('should set a large summary card so shared links unfurl with an image', () => {

@@ -45,7 +45,7 @@ export class Seo {
       '@type': 'AboutPage',
       name: title,
       description,
-      url: `${SITE.url}${path}`,
+      url: `${SITE.url}${path}/`,
       mainEntity: {
         '@type': 'Person',
         name: SITE.author,
@@ -68,7 +68,7 @@ export class Seo {
       '@type': 'CollectionPage',
       name: category.label,
       description: category.description,
-      url: `${SITE.url}/categories/${category.slug}`,
+      url: `${SITE.url}/categories/${category.slug}/`,
       isPartOf: { '@type': 'Blog', name: SITE.title, url: SITE.url },
       numberOfItems: count,
     });
@@ -87,13 +87,13 @@ export class Seo {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
       name: `Posts tagged “${tag}”`,
-      url: `${SITE.url}/tags/${tag}`,
+      url: `${SITE.url}/tags/${tag}/`,
     });
   }
 
   /** Head tags for a single post, including the card a shared link unfurls into. */
   setPost(post: PostMeta): void {
-    const url = `${SITE.url}/posts/${post.slug}`;
+    const url = `${SITE.url}/posts/${post.slug}/`;
     const image = post.ogImage
       ? new URL(post.ogImage, `${SITE.url}/`).toString()
       : `${SITE.url}/og/${post.slug}.png`;
@@ -137,7 +137,8 @@ export class Seo {
     type: string;
     image: string;
   }): void {
-    const url = `${SITE.url}${options.path}`;
+    // GitHub Pages serves every page from a folder, so the slash-less url 301s here.
+    const url = `${SITE.url}${options.path.endsWith('/') ? options.path : `${options.path}/`}`;
 
     this.title.setTitle(options.title);
     this.meta.updateTag({ name: 'description', content: options.description });

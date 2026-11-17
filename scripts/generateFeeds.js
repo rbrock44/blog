@@ -30,19 +30,19 @@ function rfc822(date) {
 function sitemap(posts, categories, tags) {
   const urls = [
     { loc: site.url, lastmod: posts[0]?.updated ?? posts[0]?.date, priority: '1.0' },
-    { loc: `${site.url}/about`, priority: '0.6' },
+    { loc: `${site.url}/about/`, priority: '0.6' },
     ...posts.map((post) => ({
-      loc: `${site.url}/posts/${post.slug}`,
+      loc: `${site.url}/posts/${post.slug}/`,
       lastmod: post.updated ?? post.date,
       priority: '0.8',
     })),
     // Categories rank above tags: they are the site's real structure, not just labels.
     ...categories.map((category) => ({
-      loc: `${site.url}/categories/${category}`,
+      loc: `${site.url}/categories/${category}/`,
       priority: '0.7',
     })),
     ...tags.map((tag) => ({
-      loc: `${site.url}/tags/${tag}`,
+      loc: `${site.url}/tags/${tag}/`,
       priority: '0.5',
     })),
   ];
@@ -70,7 +70,7 @@ function rss(posts, channel) {
       [
         '    <item>',
         `      <title>${escapeXml(post.meta.title)}</title>`,
-        `      <link>${site.url}/posts/${post.meta.slug}</link>`,
+        `      <link>${site.url}/posts/${post.meta.slug}/</link>`,
         `      <guid isPermaLink="true">${site.url}/posts/${post.meta.slug}</guid>`,
         `      <pubDate>${rfc822(post.meta.date)}</pubDate>`,
         `      <description>${escapeXml(post.meta.description)}</description>`,
